@@ -355,12 +355,12 @@ local function main()
   send_heartbeat()
   log("Startup complete")
   
-  -- Main loop timers
-  local heartbeat_timer = os.startTimer(30)
-  local display_timer = os.startTimer(1)
-  local calculation_timer = os.startTimer(config.calculation_interval)
+  local last_heartbeat = os.epoch("utc")
+  local last_calculation = os.epoch("utc")
   
   while state.running do
+    local current_time = os.epoch("utc")
+    
     -- Check for incoming messages (non-blocking)
     local msg, sender_id = network.receive_nonblocking()
     if msg then
@@ -370,25 +370,22 @@ local function main()
     -- Check command timeouts
     check_command_timeouts()
     
-    -- Handle timers
-    local event, param = os.pullEvent()
-    
-    if event == "timer" then
-      if param == heartbeat_timer then
-        send_heartbeat()
-        heartbeat_timer = os.startTimer(30)
-        
-      elseif param == display_timer then
-        display_status()
-        display_timer = os.startTimer(config.ui_refresh_rate)
-        
-      elseif param == calculation_timer then
-        run_calculations()
-        calculation_timer = os.startTimer(config.calculation_interval)
-      end
+    -- Send heartbeat every 30 seconds
+    if (current_time - last_heartbeat) > 30000 then
+      send_heartbeat()
+      last_heartbeat = current_time
     end
     
-    sleep(0.05)
+    -- Run calculations periodically
+    if (current_time - last_calculation) > (config.calculation_interval * 1000) then
+      run_calculations()
+      last_calculation = current_time
+    end
+    
+    -- Update display
+    display_status()
+    
+    sleep(0.1)
   end
   
   log("SCADA shutting down")
