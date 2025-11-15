@@ -14,8 +14,8 @@ return {
     height = 6
   },
   
-  ui_refresh_rate = 1
-  default_page = "dashboard",      -- Options:"dashboard", "factory", "production", "alerts"
+  ui_refresh_rate = 1,
+  default_page = "dashboard",      -- Options: "dashboard", "factory", "production", "alerts"
   
   -- Alert settings
   alert_sound = true, -- Play sound on critical alerts
