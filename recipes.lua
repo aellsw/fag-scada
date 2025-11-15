@@ -74,6 +74,13 @@ recipes.database = {
     name = "Item Applicator",
     produces = "applied_item",
     consumes = "base_item"
+  },
+  
+  -- Item Drain (void/disposal)
+  drain = {
+    name = "Item Drain",
+    produces = "void",        -- Or whatever it outputs
+    consumes = "any_item"     -- Or specific item type
   }
 }
 
