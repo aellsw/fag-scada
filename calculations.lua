@@ -1,7 +1,7 @@
 -- SCADA Production Calculations
 -- Calculates deficits, surpluses, and production metrics
 
-local recipes = require("scada.recipes")
+local recipes = require("recipes")
 
 local calculations = {}
 
