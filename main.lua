@@ -345,9 +345,31 @@ local function main()
     network.enable_logging(config.log_file)
   end
   
-  -- Register factory computers
+  -- Register factory computers and initialize as offline
   for _, factory_info in ipairs(config.factories) do
     network.register_computer(factory_info.lan_id, factory_info.id, "factory_lan")
+    
+    -- Initialize factory as offline until we hear from it
+    state.factories[factory_info.id] = {
+      factory_id = factory_info.id,
+      modules = {},
+      summary = {
+        total_stress_used = 0,
+        total_stress_capacity = 0,
+        active_modules = 0,
+        inactive_modules = 0,
+        modules_with_errors = 0
+      },
+      lan_status = {
+        uptime = 0,
+        modules_online = 0,
+        modules_offline = 0
+      },
+      last_updated = 0,  -- Never updated = offline
+      sender_id = factory_info.lan_id,
+      initialized = false
+    }
+    
     log("Registered factory: " .. factory_info.id .. " (ID " .. factory_info.lan_id .. ")")
   end
   
