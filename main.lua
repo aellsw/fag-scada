@@ -4,9 +4,9 @@
 -- Load dependencies
 local protocol = require("fag.protocol")
 local network = require("fag.network")
-local recipes = require("scada.recipes")
-local calculations = require("scada.calculations")
-local config = require("scada.config")
+local recipes = require("recipes")
+local calculations = require("calculations")
+local config = require("config")
 
 -- SCADA state
 local state = {
