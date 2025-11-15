@@ -9,9 +9,9 @@ local files = {
   "fag/protocol.lua",
   "fag/network.lua",
   "main.lua",
-  "calculations.lua",
-  "recipes.lua",
-  "config.lua"
+  "scada/calculations.lua",
+  "scada/recipes.lua",
+  "scada/config.lua"
 }
 
 print("=== SCADA Computer Installer ===")
@@ -22,6 +22,11 @@ print("")
 if not fs.exists("fag") then
   fs.makeDir("fag")
   print("Created fag/ directory")
+end
+
+if not fs.exists("scada") then
+  fs.makeDir("scada")
+  print("Created scada/ directory")
 end
 
 -- Download each file
