@@ -1,5 +1,6 @@
 -- SCADA Computer Main Program
 -- Tier 3: Global monitoring, calculations, and control
+-- v1.1 - Flat file structure
 
 -- Load dependencies
 local protocol = require("fag.protocol")
